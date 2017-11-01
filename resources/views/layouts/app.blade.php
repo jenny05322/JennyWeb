@@ -36,16 +36,19 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">今天吃什麼 <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ route('vendor.random') }}">抽籤</a></li>
-                                    @if(Auth::user())
-                                        <li><a href="{{ route('vendor.create') }}">新增</a></li>
-                                        <li><a href="{{ route('vendor.index') }}">管理</a></li>
-                                    @endif
-                                </ul>
-                            </li>
+                        @if(Auth::check())
+                            <li><a href="{{ route('database.index') }}">資料庫</a></li>
+                        @endif
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">今天吃什麼 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('vendor.random') }}">抽籤</a></li>
+                                @if(Auth::check())
+                                    <li><a href="{{ route('vendor.create') }}">新增</a></li>
+                                    <li><a href="{{ route('vendor.index') }}">管理</a></li>
+                                @endif
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

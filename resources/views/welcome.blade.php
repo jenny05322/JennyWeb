@@ -79,15 +79,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Jenny Web
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @if(Auth::check())
+                        <a href="{{ route('database.index') }}">資料庫</a>
+                    @endif
+                    <a href="{{ route('vendor.random') }}">今天吃什麼</a>
+                    <a href="https://github.com/jenny05322/JennyWeb">GitHub</a>
                 </div>
             </div>
         </div>
