@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::match(['get', 'post'],'vendor/random', 'VendorController@random')->name('vendor.random');
+Route::resource('vendor', 'VendorController', ['middleware' => 'auth']);
