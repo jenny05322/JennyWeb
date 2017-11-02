@@ -70,11 +70,17 @@
                 <div class="top-right links">
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                            [{{ Auth::user()->name }}] 登出
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
                     @else
                         <a href="{{ url('/login') }}">登入</a>
-                        @if(0)
-                            <a href="{{ url('/register') }}">註冊</a>
-                        @endif
+                        <a href="{{ url('/register') }}">註冊</a>
                     @endif
                 </div>
             @endif

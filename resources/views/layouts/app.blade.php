@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @stack('style')
 </head>
 <body>
     <div id="app">
@@ -56,9 +57,7 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">登入</a></li>
-                            @if(0)
-                                <li><a href="{{ route('register') }}">註冊</a></li>
-                            @endif
+                            <li><a href="{{ route('register') }}">註冊</a></li>
                         @else
                             <li>
                                 <a href="{{ route('logout') }}"
@@ -82,5 +81,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @stack('script')
 </body>
 </html>

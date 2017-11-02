@@ -177,13 +177,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //Trusted Proxy
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
-
         // Laravel Collective Html
         Collective\Html\HtmlServiceProvider::class,
-
+        // Intervention Image
         Intervention\Image\ImageServiceProvider::class,
-
+        // Captcha
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -236,8 +237,10 @@ return [
         // Laravel Collective Html
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-
+        // Intervention Image
         'Image' => Intervention\Image\Facades\Image::class,
+        // Captcha
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
