@@ -26,3 +26,5 @@ Route::match(['get', 'post'],'vendor/random', 'VendorController@random')->name('
 Route::resource('vendor', 'VendorController', ['middleware' => 'auth']);
 
 Route::get('maze/{targetType}/{targetId}/{previewImage}/{showAnswer}/{timestamp}', 'MazeController@show')->name('maze.show');
+
+Route::get('dice/merge/{dices}/{previewImage}/{timestamp}', 'DiceController@merge')->name('dice.merge');
