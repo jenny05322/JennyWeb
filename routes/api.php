@@ -184,7 +184,7 @@ Route::post('lineBotWebhook', function (Request $request) {
                     $textMessageBuilder = new TextMessageBuilder('此路不通');
                 }
 
-                if ($newLocation == 24) {
+                if ($newLocation == ($maze->width * $maze->height - 1)) {
                     $textMessageBuilder = new TextMessageBuilder('恭喜你到達終點啦！');
                     $maze->delete();
                 } elseif ($newLocation != $maze->location) {
