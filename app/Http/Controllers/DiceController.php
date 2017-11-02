@@ -12,15 +12,16 @@ class DiceController extends Controller
         $imageWidhtUnit = strlen($dices);
         $diceAry = str_split($dices);
 
-
         $img = Image::canvas(125 * $imageWidhtUnit, 125, '#ffffff');
 
         foreach ($diceAry as $key => $dice) {
-            $img->insert(storage_path('app/images/' . $dice . '.png'), 'top-left', $key * 125, 0);
+            $img->insert(asset('images/' . $dice . '.png'), 'top-left', $key * 125, 0);
         }
 
         if ($previewImage) {
-            $img->resize(240, 240);
+            $img->resize(240, 240, function ($constraint) {
+                $constraint->aspectRatio();
+            });
         }
 
         return $img->response('jpg');
