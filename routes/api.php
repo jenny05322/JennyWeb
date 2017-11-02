@@ -70,7 +70,7 @@ Route::post('lineBotWebhook', function (Request $request) {
     if ($message['type'] == 'text') {
         $text = $message['text'];
         if ($text == '丹丹機器人 -h') {
-            $replyMessageText = "歡迎使用丹丹機器人\n\n指令說明：\nmaze:5*5：產生 5*5 大小的迷宮\nmaze:show：顯示迷宮\nmaze:showAnswer：顯示迷宮（含答案）\nmaze:close：結束迷宮";
+            $replyMessageText = "歡迎使用丹丹機器人\n\n指令說明：\nmaze:create {寬} {高}：產生寬 * 高大小的迷宮\nmaze:show：顯示迷宮\nmaze:showAnswer：顯示迷宮（含答案）\nmaze:close：結束迷宮";
 
             $textMessageBuilder = new TextMessageBuilder($replyMessageText);
             $response = $bot->replyMessage($replyToken, $textMessageBuilder);
