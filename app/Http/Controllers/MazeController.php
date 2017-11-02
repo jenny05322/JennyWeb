@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Image;
+use Storage;
 use App\Maze\Maze;
 use App\Maze\Answer;
 
@@ -37,6 +38,10 @@ class MazeController extends Controller
                     $this->drawBlock($block, $cell, $j * 35, $i * 35);
                 }
             }
+
+            $this->img->circle(25, 17.5 + ($maze->location % 5 * 35), 17.5 + (floor($maze->location / 5) * 35), function ($draw) {
+                $draw->border(5, 'ff0000');
+            });
 
             if ($previewImage) {
                 $this->img->resize(240, 240);
