@@ -44,7 +44,9 @@ class MazeController extends Controller
             });
 
             if ($previewImage) {
-                $this->img->resize(240, 240);
+                $this->img->resize(240, 240, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
             }
 
             return $this->img->response('jpg');
