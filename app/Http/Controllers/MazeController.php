@@ -13,7 +13,7 @@ class MazeController extends Controller
     private $path;
     private $showAnswer;
 
-    public function show($targetType, $targetId, $previewImage, $showAnswer)
+    public function show($targetType, $targetId, $previewImage, $showAnswer, $timestamp)
     {
         // init
         $this->showAnswer = $showAnswer;
