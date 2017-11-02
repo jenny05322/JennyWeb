@@ -74,6 +74,42 @@ Route::post('lineBotWebhook', function (Request $request) {
 
             $textMessageBuilder = new TextMessageBuilder($replyMessageText);
             $response = $bot->replyMessage($replyToken, $textMessageBuilder);
+        } elseif (substr($text, 0, 11) == 'maze:create') {
+            $textAry = explode(' ', $text);
+            $width = $textAry[1];
+            $height = $textAry[2];
+
+            $maze = Maze::where('targetType', $targetType)
+                        ->where('targetId', $targetId)
+                        ->first();
+            if ($maze) {
+                $replyMessageText = "已存在一個迷宮，結束遊戲，才能開新的";
+            } else {
+                if ($width * $height > 100) {
+                    $replyMessageText = "迷宮太大了，寬 * 高要小於 100";
+                } else {
+                    // 產生迷宮
+                    $MazeBuilder = new MazeBuilder();
+                    $MazeBuilder->set($width, $height);
+                    $MazeBuilder->create();
+                    $mazeData = $MazeBuilder->get();
+
+                    // 存入迷宮資料庫
+                    Maze::create([
+                        'targetType' => $targetType,
+                        'targetId'   => $targetId,
+                        'width'      => $width,
+                        'height'     => $height,
+                        'mazeData'   => serialize($mazeData),
+                    ]);
+
+                    $replyMessageText = "迷宮建立成功";
+                }
+            }
+
+            // 回復訊息
+            $textMessageBuilder = new TextMessageBuilder($replyMessageText);
+            $response = $bot->replyMessage($replyToken, $textMessageBuilder);
         } elseif ($text == 'maze:5*5') {
             $maze = Maze::where('targetType', $targetType)
                         ->where('targetId', $targetId)
