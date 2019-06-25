@@ -20,8 +20,12 @@ class keyForgeController extends Controller
 
         if ($request->deck) {
             $cards = $this->keyForgeRepository->getCardsByDeck($request->deck);
+        }
 
+        if (isset($cards)) {
             $handCards = $cards->random(6);
+        } else {
+            $handCards = null;
         }
 
         return view('keyforge.index', compact('decks', 'handCards'));

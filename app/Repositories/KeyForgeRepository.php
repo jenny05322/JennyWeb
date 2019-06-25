@@ -166,6 +166,10 @@ class KeyForgeRepository
 
     public function getCardsByDeck($deck)
     {
-        return collect($this->decks[$deck]);
+        if (isset($this->decks[$deck])) {
+            return collect($this->decks[$deck]);
+        } else {
+            return null;
+        }
     }
 }
