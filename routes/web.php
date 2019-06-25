@@ -25,6 +25,8 @@ Route::get('table/{table}', 'TableController@index')->name('table.index');
 Route::match(['get', 'post'],'vendor/random', 'VendorController@random')->name('vendor.random');
 Route::resource('vendor', 'VendorController', ['middleware' => 'auth']);
 
+Route::get('keyforge', 'keyForgeController@index')->name('keyforge.index');
+
 Route::get('maze/{targetType}/{targetId}/{previewImage}/{showAnswer}/{timestamp}', 'MazeController@show')->name('maze.show');
 
 Route::get('dice/merge/{dices}/{previewImage}/{timestamp}', 'DiceController@merge')->name('dice.merge');
