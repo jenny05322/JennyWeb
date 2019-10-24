@@ -19,14 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// 資料庫
 Route::get('database', 'DatabaseController@index')->name('database.index');
 Route::get('table/{table}', 'TableController@index')->name('table.index');
-
+// 今天吃什麼
 Route::match(['get', 'post'],'vendor/random', 'VendorController@random')->name('vendor.random');
 Route::resource('vendor', 'VendorController', ['middleware' => 'auth']);
-
-Route::get('keyforge', 'keyForgeController@index')->name('keyforge.index');
-
+// 鍛鑰者
+Route::get('keyforge', 'KeyForgeController@index')->name('keyforge.index');
+// 股票資訊
+Route::get('stock', 'StockController@index')->name('stock.index');
+// line 機器人
 Route::get('maze/{targetType}/{targetId}/{previewImage}/{showAnswer}/{timestamp}', 'MazeController@show')->name('maze.show');
-
 Route::get('dice/merge/{dices}/{previewImage}/{timestamp}', 'DiceController@merge')->name('dice.merge');

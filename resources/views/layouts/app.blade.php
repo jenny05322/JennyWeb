@@ -51,6 +51,7 @@
                             </ul>
                         </li>
                         <li><a href="{{ route('keyforge.index') }}">鍛鑰者</a></li>
+                        <li><a href="{{ route('stock.index') }}">股票資訊</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

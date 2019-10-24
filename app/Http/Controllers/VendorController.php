@@ -97,8 +97,9 @@ class VendorController extends Controller
 
         if ($vendors->count()) {
             $vendor = $vendors->random();
+            return view('vendor.random', compact('vendor'));
+        } else {
+            return view('vendor.random');
         }
-
-        return view('vendor.random', compact('vendor'));
     }
 }
