@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Repositories\KeyForgeRepository;
 
-class keyForgeController extends Controller
+class KeyForgeController extends Controller
 {
     protected $keyForgeRepository;
 
