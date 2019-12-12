@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -16,53 +15,57 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel') }}
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
+                    <ul class="navbar-nav mr-auto">
                         @if(Auth::check())
-                            <li><a href="{{ route('database.index') }}">資料庫</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('database.index') }}">資料庫</a>
+                            </li>
                         @endif
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">今天吃什麼 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ route('vendor.random') }}">抽籤</a></li>
+                        <li class="dropdown dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                今天吃什麼 <span class="caret"></span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ route('vendor.random') }}">抽籤</a>
                                 @if(Auth::check())
-                                    <li><a href="{{ route('vendor.create') }}">新增</a></li>
-                                    <li><a href="{{ route('vendor.index') }}">管理</a></li>
+                                    <a class="dropdown-item" href="{{ route('vendor.create') }}">新增</a>
+                                    <a class="dropdown-item" href="{{ route('vendor.index') }}">管理</a>
                                 @endif
-                            </ul>
+                            </div>
                         </li>
-                        <li><a href="{{ route('keyforge.index') }}">鍛鑰者</a></li>
-                        <li><a href="{{ route('stock.index') }}">股票資訊</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('keyforge.index') }}">鍛鑰者</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('stock.index') }}">股票資訊</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">登入</a></li>
-                            <li><a href="{{ route('register') }}">註冊</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">登入</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">註冊</a>
+                            </li>
                         @else
-                            <li>
-                                <a href="{{ route('logout') }}"
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
                                     [{{ Auth::user()->name }}] 登出
@@ -78,7 +81,9 @@
             </div>
         </nav>
 
-        @yield('content')
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
 
     <!-- Scripts -->

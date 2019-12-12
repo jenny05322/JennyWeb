@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,15 +8,15 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
                 height: 100vh;
                 margin: 0;
             }
@@ -52,7 +52,7 @@
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
-                font-size: 12px;
+                font-size: 13px;
                 font-weight: 600;
                 letter-spacing: .1rem;
                 text-decoration: none;
@@ -68,7 +68,7 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    @if (Auth::check())
+                    @auth
                         <a href="{{ url('/home') }}">Home</a>
                         <a href="{{ route('logout') }}"
                             onclick="event.preventDefault();
@@ -79,9 +79,12 @@
                             {{ csrf_field() }}
                         </form>
                     @else
-                        <a href="{{ url('/login') }}">登入</a>
-                        <a href="{{ url('/register') }}">註冊</a>
-                    @endif
+                        <a href="{{ route('login') }}">登入</a>
+                        
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}">註冊</a>
+                        @endif
+                    @endauth
                 </div>
             @endif
 

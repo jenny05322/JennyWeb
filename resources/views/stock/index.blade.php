@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-full" style="padding: 0 15px;">
-    <div class="page-header">
-        <h1>股票資訊</h1>
-    </div>
+<div class="container-fluid" style="padding: 0 15px;">
+    <h1>股票資訊</h1>
 
     @foreach ($output as $dollerName => $priceInfo)
         @if ($priceInfo['buyOrSale'] == 'buy')

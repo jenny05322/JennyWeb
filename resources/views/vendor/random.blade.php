@@ -12,7 +12,7 @@
             <div>
                 <div>今天我們吃：</div>
                 <div>
-                    <a href="{{ route('vendor.show', $vendor->id) }}" class="btn btn-default btn-lg btn-block">{{ $vendor->name }}</a>
+                    <a href="{{ route('vendor.show', $vendor->id) }}" class="btn btn-secondary btn-lg btn-block">{{ $vendor->name }}</a>
                 </div>
             </div>
         @else

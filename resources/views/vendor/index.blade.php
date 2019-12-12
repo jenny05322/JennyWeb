@@ -2,13 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="page-header">
-        <h1>管理</h1>
-    </div>
+    <h1>管理</h1>
 
     <div class="table-responsive">
         <table class="table table-striped table-hover">
-            <thead>
+            <thead class="thead-dark">
                 <tr>
                     <th>店家名稱</th>
                     <th>電話</th>
