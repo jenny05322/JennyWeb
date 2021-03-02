@@ -61,11 +61,7 @@ class RateRepository
                 continue;
             }
             echo($trItem->nodeValue);
-            echo "<br>";
-            echo($trItem->childNodes[1]->nodeValue);
-            echo "<br>";
-            echo($trItem->childNodes[7]->nodeValue);
-            echo "<br>";
+            dump(array_unique(explode(' ', $trItem->nodeValue)));
 
             // 取得幣別
             preg_match('/([A-Z]{3})/', trim($trItem->childNodes[1]->nodeValue), $matches);
