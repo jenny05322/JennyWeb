@@ -60,6 +60,9 @@ class RateRepository
             foreach ($trItem->childNodes as $key2 => $tdItem) {
                 if ($key2 == 1) {
                     preg_match('/([A-Z]{3})/', trim($tdItem->nodeValue), $matches);
+                    if (!isset($matches[0])) {
+                        dd(trim($tdItem->nodeValue));
+                    }
                     $name = $matches[0];
                 }
 
