@@ -30,6 +30,8 @@ class RateRepository
 
     public function getCurrentRates()
     {
+        set_time_limit(0);
+
         $url = 'https://rate.bot.com.tw/xrt';
 
         // curl
@@ -44,7 +46,7 @@ class RateRepository
         }
         curl_close($curl_handle);
 
-        dump($contents);
+        $contents = str_replace("\r\n", '', $contents);
 
         // new DOMDocument
         $dom = new DOMDocument;
@@ -59,23 +61,19 @@ class RateRepository
                 continue;
             }
 
-            foreach ($trItem->childNodes as $key2 => $tdItem) {
-                if ($key2 == 1) {
-                    preg_match('/([A-Z]{3})/', trim($tdItem->nodeValue), $matches);
-                    if (!isset($matches[0])) {
-                        continue;
-                    }
-                    $name = $matches[0];
-                }
-
-                if ($key2 == 7) {
-                    if (trim($tdItem->nodeValue) == '-') {
-                        $todayBuy = 0;
-                    } else {
-                        $todayBuy = trim($tdItem->nodeValue);
-                    }
-                }
+            // 取得幣別
+            preg_match('/([A-Z]{3})/', trim($trItem->childNodes[1]->nodeValue), $matches);
+            if (!isset($matches[0])) {
+                continue;
             }
+            $name = $matches[0];
+            // 取得即期買入匯率
+            if (trim($trItem->childNodes[7]->nodeValue) == '-') {
+                $todayBuy = 0;
+            } else {
+                $todayBuy = trim($trItem->childNodes[7]->nodeValue);
+            }
+
             if (isset($name) && isset($todayBuy)) {
                 $output[$name] = $todayBuy;
             }
