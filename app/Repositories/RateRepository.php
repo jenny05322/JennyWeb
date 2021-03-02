@@ -57,10 +57,12 @@ class RateRepository
         $trItems = $dom->getElementsByTagName('tr');
         $output = [];
         foreach ($trItems as $key => $trItem) {
-            dump($trItem->nodeValue);
             if (in_array($key, [0, 1])) {
                 continue;
             }
+            dump($trItem->nodeValue);
+            dump(trim($trItem->childNodes[1]->nodeValue));
+            dump(trim($trItem->childNodes[7]->nodeValue));
 
             // 取得幣別
             preg_match('/([A-Z]{3})/', trim($trItem->childNodes[1]->nodeValue), $matches);
