@@ -74,7 +74,9 @@ class RateRepository
                     }
                 }
             }
-            $output[$name] = $todayBuy;
+            if (isset($name) && isset($todayBuy)) {
+                $output[$name] = $todayBuy;
+            }
         }
 
         dump($output);
