@@ -44,6 +44,8 @@ class RateRepository
         }
         curl_close($curl_handle);
 
+        dump($contents);
+
         // new DOMDocument
         $dom = new DOMDocument;
         libxml_use_internal_errors(true);
@@ -78,8 +80,6 @@ class RateRepository
                 $output[$name] = $todayBuy;
             }
         }
-
-        dump($output);
 
         return $output;
     }
