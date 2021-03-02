@@ -60,20 +60,16 @@ class RateRepository
             if (in_array($key, [0, 1])) {
                 continue;
             }
-            echo($trItem->nodeValue);
-            dump(array_unique(explode(' ', $trItem->nodeValue)));
+            $trValue = array_values(array_unique(explode(' ', $trItem->nodeValue)));
 
             // 取得幣別
-            preg_match('/([A-Z]{3})/', trim($trItem->childNodes[1]->nodeValue), $matches);
-            if (!isset($matches[0])) {
-                continue;
-            }
+            preg_match('/([A-Z]{3})/', $trValue[2], $matches);
             $name = $matches[0];
             // 取得即期買入匯率
-            if (trim($trItem->childNodes[7]->nodeValue) == '-') {
+            if ($trValue[5] == '-') {
                 $todayBuy = 0;
             } else {
-                $todayBuy = trim($trItem->childNodes[7]->nodeValue);
+                $todayBuy = $trValue[5];
             }
 
             if (isset($name) && isset($todayBuy)) {
