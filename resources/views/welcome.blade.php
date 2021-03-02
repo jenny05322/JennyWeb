@@ -94,7 +94,6 @@
 
                 <div class="links">
                     <a href="{{ route('vendor.random') }}">今天吃什麼</a>
-                    <a href="https://github.com/jenny05322/JennyWeb">GitHub</a>
                 </div>
             </div>
         </div>
