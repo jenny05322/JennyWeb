@@ -61,7 +61,7 @@ class RateRepository
                 if ($key2 == 1) {
                     preg_match('/([A-Z]{3})/', trim($tdItem->nodeValue), $matches);
                     if (!isset($matches[0])) {
-                        dd(trim($tdItem->nodeValue));
+                        dd(trim($trItems->nodeValue));
                     }
                     $name = $matches[0];
                 }
