@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -48,9 +48,18 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('keyforge.index') }}">鍛鑰者</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('stock.index') }}">股票資訊</a>
-                        </li>
+                        @if(Auth::check())
+                            <li class="dropdown dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    外匯資訊 <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="{{ route('rate.create') }}">新增</a>
+                                    <a class="dropdown-item" href="{{ route('rate.index') }}">列表</a>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

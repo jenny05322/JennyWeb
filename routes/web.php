@@ -28,7 +28,7 @@ Route::resource('vendor', 'VendorController', ['middleware' => 'auth']);
 // 鍛鑰者
 Route::get('keyforge', 'KeyForgeController@index')->name('keyforge.index');
 // 股票資訊
-Route::get('stock', 'StockController@index')->name('stock.index');
+Route::resource('rate', 'RateController', ['middleware' => 'auth']);
 // line 機器人
 Route::get('maze/{targetType}/{targetId}/{previewImage}/{showAnswer}/{timestamp}', 'MazeController@show')->name('maze.show');
 Route::get('dice/merge/{dices}/{previewImage}/{timestamp}', 'DiceController@merge')->name('dice.merge');

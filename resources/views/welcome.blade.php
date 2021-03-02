@@ -80,7 +80,6 @@
                         </form>
                     @else
                         <a href="{{ route('login') }}">登入</a>
-                        
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">註冊</a>
                         @endif
@@ -94,9 +93,6 @@
                 </div>
 
                 <div class="links">
-                    @if(Auth::check())
-                        <a href="{{ route('database.index') }}">資料庫</a>
-                    @endif
                     <a href="{{ route('vendor.random') }}">今天吃什麼</a>
                     <a href="https://github.com/jenny05322/JennyWeb">GitHub</a>
                 </div>
