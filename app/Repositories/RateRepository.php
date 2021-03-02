@@ -57,6 +57,7 @@ class RateRepository
         $trItems = $dom->getElementsByTagName('tr');
         $output = [];
         foreach ($trItems as $key => $trItem) {
+            dump($trItem->nodeValue);
             if (in_array($key, [0, 1])) {
                 continue;
             }
