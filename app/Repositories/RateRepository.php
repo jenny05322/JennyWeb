@@ -60,9 +60,12 @@ class RateRepository
             if (in_array($key, [0, 1])) {
                 continue;
             }
-            dump($trItem->nodeValue);
-            dump(trim($trItem->childNodes[1]->nodeValue));
-            dump(trim($trItem->childNodes[7]->nodeValue));
+            echo($trItem->nodeValue);
+            echo "<br>";
+            echo($trItem->childNodes[1]->nodeValue);
+            echo "<br>";
+            echo($trItem->childNodes[7]->nodeValue);
+            echo "<br>";
 
             // 取得幣別
             preg_match('/([A-Z]{3})/', trim($trItem->childNodes[1]->nodeValue), $matches);
