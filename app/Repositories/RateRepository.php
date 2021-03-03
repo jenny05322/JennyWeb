@@ -32,7 +32,7 @@ class RateRepository
     {
         set_time_limit(0);
 
-        $url = 'https://rate.bot.com.tw/xrt';
+        $url = 'https://rate.bot.com.tw/xrt?Lang=zh-TW';
 
         // curl
         $curl_handle = curl_init();

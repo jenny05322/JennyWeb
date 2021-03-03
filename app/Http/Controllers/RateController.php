@@ -20,33 +20,16 @@ class RateController extends Controller
     {
         $currentRates = $this->rateRepository->getCurrentRates();
         $currencyRates = Rate::orderBy('date')->get()->groupBy('currency')->map(function ($rates, $currency) use ($currentRates) {
-            $realized_profit = $rates->sum('realized_profit');
-            $total = 0;
-            $totalTWD = 0;
-            foreach ($rates as $rate) {
-                if ($rate->buy_or_sale == Rate::BUY) {
-                    $total += $rate->money;
-                    $totalTWD += $rate->money_TWD;
-                } else {
-                    $total -= $rate->money;
-                    $totalTWD -= $rate->money_TWD;
-                }
-            }
-            $totalTWD += $realized_profit;
-            if ($total) {
-                $avgRate = $totalTWD / $total;
-            } else {
-                $avgRate = 0;
-            }
-            $unrealized_profit = ($currentRates[$currency] * $total) - ($avgRate * $total);
+            $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
+            $unrealized_profit = ($currentRates[$currency] - $totalAndAvgRate['avgRate']) * $totalAndAvgRate['total'];
 
             return [
-                'realized_profit'   => $realized_profit,
+                'realized_profit'   => $totalAndAvgRate['realized_profit'],
                 'unrealized_profit' => $unrealized_profit,
-                'currentValue'      => $total * $currentRates[$currency],
-                'total'             => $total,
-                'totalTWD'          => $totalTWD,
-                'avgRate'           => $avgRate,
+                'currentValue'      => $totalAndAvgRate['total'] * $currentRates[$currency],
+                'total'             => $totalAndAvgRate['total'],
+                'totalTWD'          => $totalAndAvgRate['totalTWD'],
+                'avgRate'           => $totalAndAvgRate['avgRate'],
                 'rates'             => $rates,
             ];
         });
@@ -79,21 +62,9 @@ class RateController extends Controller
 
         if ($request->buy_or_sale == Rate::SALE) {
             $rates = Rate::where('currency', $request->currency)->get();
+            $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
 
-            $total = 0;
-            $totalTWD = 0;
-            foreach ($rates as $rate) {
-                if ($rate->buy_or_sale == Rate::BUY) {
-                    $total += $rate->money;
-                    $totalTWD += $rate->money_TWD;
-                } else {
-                    $total -= $rate->money;
-                    $totalTWD -= $rate->money_TWD;
-                }
-            }
-            $avgRate = $totalTWD / $total;
-
-            $request['realized_profit'] = floor($request->money_TWD - ($avgRate * $request->money));
+            $request['realized_profit'] = floor($request->money_TWD - ($totalAndAvgRate['avgRate'] * $request->money));
         }
 
         Rate::create($request->all());
@@ -106,5 +77,34 @@ class RateController extends Controller
         $rate->delete();
 
         return redirect()->route('rate.index');
+    }
+
+    private function getTotalAndAvgRate($rates)
+    {
+        $realized_profit = $rates->sum('realized_profit');
+        $total = 0;
+        $totalTWD = 0;
+        foreach ($rates as $rate) {
+            if ($rate->buy_or_sale == Rate::BUY) {
+                $total += $rate->money;
+                $totalTWD += $rate->money_TWD;
+            } else {
+                $total -= $rate->money;
+                $totalTWD -= $rate->money_TWD;
+            }
+        }
+        $totalTWD += $realized_profit;
+        if ($total) {
+            $avgRate = $totalTWD / $total;
+        } else {
+            $avgRate = 0;
+        }
+
+        return [
+            'avgRate'         => $avgRate,
+            'realized_profit' => $realized_profit,
+            'total'           => $total,
+            'totalTWD'        => $totalTWD,
+        ];
     }
 }
