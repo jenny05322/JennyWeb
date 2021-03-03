@@ -120,7 +120,7 @@
                                             </td>
                                             <td class="text-right">{{ number_format($rate->money, 2) }}</td>
                                             <td class="text-right">{{ number_format($rate->rate, 3) }}</td>
-                                            <td class="text-right">{{ $rate->money_TWD }}</td>
+                                            <td class="text-right">{{ number_format($rate->money_TWD) }}</td>
                                             <td class="text-right">
                                                 {!! Form::open(['route' => ['rate.destroy', $rate->id], 'method' => 'delete', 'class' => 'form-horizontal']) !!}
                                                     <button class="btn btn-link" type="submit"><i class="far fa-trash-alt"></i></button>

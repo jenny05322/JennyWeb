@@ -86,10 +86,10 @@ class RateController extends Controller
         $totalTWD = 0;
         foreach ($rates as $rate) {
             if ($rate->buy_or_sale == Rate::BUY) {
-                $total += $rate->money;
+                $total = round($total, 2) + round($rate->money, 2);
                 $totalTWD += $rate->money_TWD;
             } else {
-                $total -= $rate->money;
+                $total = round($total, 2) - round($rate->money, 2);
                 $totalTWD -= $rate->money_TWD;
             }
         }
