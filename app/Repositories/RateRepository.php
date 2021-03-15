@@ -66,10 +66,13 @@ class RateRepository
             preg_match('/([A-Z]{3})/', $trValue[2], $matches);
             $name = $matches[0];
             // 取得即期買入匯率
-            if ($trValue[5] == '-') {
-                $todayBuy = 0;
+            if ($name == 'ZAR') {
+                $todayBuy = $trValue[4];
             } else {
                 $todayBuy = $trValue[5];
+            }
+            if ($todayBuy == '-') {
+                $todayBuy = 0;
             }
 
             if (isset($name) && isset($todayBuy)) {
