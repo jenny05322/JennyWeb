@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Rate;
 use App\Repositories\RateRepository;
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -19,20 +20,24 @@ class RateController extends Controller
     public function index(Request $request)
     {
         $currentRates = $this->rateRepository->getCurrentRates();
-        $currencyRates = Rate::orderBy('date')->get()->groupBy('currency')->map(function ($rates, $currency) use ($currentRates) {
-            $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
-            $unrealized_profit = ($currentRates[$currency] - $totalAndAvgRate['avgRate']) * $totalAndAvgRate['total'];
+        $currencyRates = Rate::where('user_id', Auth::id())
+            ->where('who', $request->who)
+            ->orderBy('date')
+            ->get()
+            ->groupBy('currency')->map(function ($rates, $currency) use ($currentRates) {
+                $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
+                $unrealized_profit = ($currentRates[$currency] - $totalAndAvgRate['avgRate']) * $totalAndAvgRate['total'];
 
-            return [
-                'realized_profit'   => $totalAndAvgRate['realized_profit'],
-                'unrealized_profit' => $unrealized_profit,
-                'currentValue'      => $totalAndAvgRate['total'] * $currentRates[$currency],
-                'total'             => $totalAndAvgRate['total'],
-                'totalTWD'          => $totalAndAvgRate['totalTWD'],
-                'avgRate'           => $totalAndAvgRate['avgRate'],
-                'rates'             => $rates,
-            ];
-        });
+                return [
+                    'realized_profit'   => $totalAndAvgRate['realized_profit'],
+                    'unrealized_profit' => $unrealized_profit,
+                    'currentValue'      => $totalAndAvgRate['total'] * $currentRates[$currency],
+                    'total'             => $totalAndAvgRate['total'],
+                    'totalTWD'          => $totalAndAvgRate['totalTWD'],
+                    'avgRate'           => $totalAndAvgRate['avgRate'],
+                    'rates'             => $rates,
+                ];
+            });
 
         return view('rate.index', [
             'currentRates'  => $currentRates,
@@ -67,9 +72,11 @@ class RateController extends Controller
             $request['realized_profit'] = floor($request->money_TWD - ($totalAndAvgRate['avgRate'] * $request->money));
         }
 
+        $request['user_id'] = Auth::id();
+
         Rate::create($request->all());
 
-        return redirect()->route('rate.index');
+        return redirect()->route('rate.index', ['who' => $request->who]);
     }
 
     public function destroy(Rate $rate)

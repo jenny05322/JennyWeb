@@ -2,7 +2,18 @@
 
 @section('content')
     <div class="container" style="padding: 0 15px;">
-        <h1>外匯資訊</h1>
+        <h1 class="float-left">外匯資訊</h1>
+        <a class="btn btn-primary float-right" href="{{ route('rate.create') }}">新增</a>
+        <div class="clearfix"></div>
+
+        <ul class="nav nav-tabs mb-3">
+            <li class="nav-item">
+                <a class="nav-link @if (request()->who == App\Rate::WHO_ME) active @endif" href="{{ route('rate.index', ['who' => App\Rate::WHO_ME]) }}">我</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @if (request()->who == App\Rate::WHO_MOTHER) active @endif" href="{{ route('rate.index', ['who' => App\Rate::WHO_MOTHER]) }}">媽媽</a>
+            </li>
+        </ul>
 
         <div class="border mb-3">
             <div class="row p-3">

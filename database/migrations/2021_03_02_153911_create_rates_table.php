@@ -15,8 +15,10 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->date('date');
             $table->string('currency');
+            $table->unsignedTinyInteger('who')->default(1);
             $table->unsignedTinyInteger('buy_or_sale');
             $table->float('money')->default(0);
             $table->float('rate', 8, 3)->default(0);

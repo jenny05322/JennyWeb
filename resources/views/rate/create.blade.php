@@ -6,6 +6,20 @@
 
         {!! Form::open(['route' => 'rate.store', 'class' => 'form-horizontal']) !!}
             <div class="form-group row">
+                <label for="who" class="col-sm-2 col-form-label">誰的</label>
+                <div class="col-sm-10">
+                  {!! Form::select(
+                        'who',
+                        [
+                            App\Rate::WHO_ME => '我',
+                            App\Rate::WHO_MOTHER => '媽媽'
+                        ],
+                        null,
+                        ['class' => 'form-control']
+                    ) !!}
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="date" class="col-sm-2 col-form-label">交易日期</label>
                 <div class="col-sm-10">
                     {!! Form::date('date', null, ['class' => 'form-control']) !!}

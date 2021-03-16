@@ -55,8 +55,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="{{ route('rate.create') }}">新增</a>
-                                    <a class="dropdown-item" href="{{ route('rate.index') }}">列表</a>
+                                    <a class="dropdown-item" href="{{ route('rate.index', ['who' => App\Rate::WHO_ME]) }}">列表(我)</a>
+                                    <a class="dropdown-item" href="{{ route('rate.index', ['who' => App\Rate::WHO_MOTHER]) }}">列表(媽)</a>
                                 </div>
                             </li>
                         @endif
