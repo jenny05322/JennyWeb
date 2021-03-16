@@ -27,16 +27,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @if(Auth::check())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('database.index') }}">資料庫</a>
-                            </li>
-                        @endif
                         <li class="dropdown dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 今天吃什麼 <span class="caret"></span>
                             </a>
-
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="{{ route('vendor.random') }}">抽籤</a>
                                 @if(Auth::check())
@@ -44,9 +38,6 @@
                                     <a class="dropdown-item" href="{{ route('vendor.index') }}">管理</a>
                                 @endif
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('keyforge.index') }}">鍛鑰者</a>
                         </li>
                         @if(Auth::check())
                             <li class="dropdown dropdown">
