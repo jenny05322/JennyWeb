@@ -20,7 +20,7 @@ class CreateRatesTable extends Migration
             $table->string('currency');
             $table->unsignedTinyInteger('who')->default(1);
             $table->unsignedTinyInteger('buy_or_sale');
-            $table->float('money')->default(0);
+            $table->float('money', 10, 2)->default(0);
             $table->float('rate', 8, 3)->default(0);
             $table->integer('money_TWD')->default(0);
             $table->integer('realized_profit')->default(0);

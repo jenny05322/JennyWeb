@@ -66,7 +66,7 @@ class RateController extends Controller
         }
 
         if ($request->buy_or_sale == Rate::SALE) {
-            $rates = Rate::where('currency', $request->currency)->get();
+            $rates = Rate::where('currency', $request->currency)->where('who', $request->who)->get();
             $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
 
             $request['realized_profit'] = floor($request->money_TWD - ($totalAndAvgRate['avgRate'] * $request->money));
@@ -83,7 +83,7 @@ class RateController extends Controller
     {
         $rate->delete();
 
-        return redirect()->route('rate.index');
+        return back();
     }
 
     private function getTotalAndAvgRate($rates)
