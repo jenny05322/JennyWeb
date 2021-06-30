@@ -22,7 +22,7 @@ class RateController extends Controller
         $currentRates = $this->rateRepository->getCurrentRates();
         $currencyRates = Rate::where('user_id', Auth::id())
             ->where('who', $request->who)
-            ->orderBy('date')
+            ->orderBy('date', 'desc')
             ->get()
             ->groupBy('currency')->map(function ($rates, $currency) use ($currentRates) {
                 $totalAndAvgRate = $this->getTotalAndAvgRate($rates);
